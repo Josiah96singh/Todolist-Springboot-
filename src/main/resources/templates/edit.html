@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}"/>
+        
+</head>
+
+<body>
+<div class = "container">
+	<h1>Edit Item</h1>
+	<div>
+	
+		<form th:object="${todo}" th:action="@{../save}" action="#" method="post">
+		<input type="hidden" th:field="*{id}" class="form-control"/>
+	    <input type="text" th:field="*{description}" />
+	    <input type="text" th:field="*{day}" />
+	    <input type="text" th:field="*{year}" />
+		<select id = "labeling" th:field="*{label}" class= "form-control">
+			<option th:each="label: ${labels}" th:value="${label.labelid}" th:text="${label.name}"></option>
+				</select>
+	     <input type="submit" class="btn btn-success" value="Save"></input>
+	     <a href = "/back" class = "btn btn-danger">Back</a>
+	</form>
+	
+	</div>
+	</div>
+</body>
+</html>

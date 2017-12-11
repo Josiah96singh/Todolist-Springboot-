@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>BookList</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class = "container">
+	<h1 class="display-1">Todo Web App</h1>
+	<h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+		
+		
+		<div  >
+		<form th:action="@{/logout}" method="post">
+		<input type="submit" class="btn btn-danger" value="Sign Out"/>
+		</form>
+		</div>
+
+	  <table class="table table-inverse">
+		<tr>
+			<th>Description</th>
+			<th> Day </th>
+			<th>Year</th>
+			<th>Label</th>
+			<th> Actions </th>
+		</tr>
+		<tr th:each="todos : ${todo}">
+			<td th:text="${todos.description}"></td>
+			<td th:text="${todos.day}"></td>
+			<td th:text="${todos.year}"></td>
+			<td th:text="${todos.label.name}"></td>
+          <td>
+          <a th:href="@{/edit/{id}(id=${todos.id})}" class = "btn btn-info">Edit</a>
+          <a th:href="@{/delete/{id}(id=${todos.id})}" sec:authorize="hasRole('ADMIN')" class="btn btn-danger">Clear</a>	
+            <a th:href="@{/delete/{id}(id=${todos.id})}" class="btn btn-success">Completed</a>
+          </td>	
+		</tr>
+	</table>
+	 <a href="/add" class = "btn btn-success">Add Books</a>  
+	 </div>
+</body>
+</html>
